@@ -1,9 +1,7 @@
+import 'dart:isolate';
 import 'dart:math';
 
-import 'package:tunning_sudoku/src/util/sudoku_solver.dart';
-
 import '../../tunning_sudoku.dart';
-import '../model/sudoku_values.dart';
 
 class SynchroTransformer {
   SynchroSudoku reduceToUniqueSync(
@@ -129,5 +127,14 @@ class SynchroTransformer {
       transformations.add(t);
     }
     return transformations;
+  }
+
+  Future<SynchroSudoku> reduceToUnique(
+      {required SudokuValues v,
+      int iterations = 1,
+      bool keepMax = false}) async {
+    final sudoku = await Isolate.run(() => reduceToUniqueSync(
+        v: v.copy(), iterations: iterations, keepMax: keepMax));
+    return sudoku;
   }
 }

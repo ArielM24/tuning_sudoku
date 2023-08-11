@@ -1,7 +1,5 @@
 import 'package:tunning_sudoku/tunning_sudoku.dart';
 
-import '../model/sudoku_values.dart';
-
 class SynchroSolver {
   List<SudokuValues> _allSolutionsBacktraking(
       {required int r,

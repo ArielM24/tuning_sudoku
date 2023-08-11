@@ -1,8 +1,6 @@
-import 'package:tunning_sudoku/src/util/sudoku_solver.dart';
-import 'package:tunning_sudoku/src/util/sudoku_transformer.dart';
 import 'package:tunning_sudoku/tunning_sudoku.dart';
 
-void main() {
+void main() async {
   var complete = SynchroSudoku.fromValues([
     [8, 2, 4, 6, 9, 7, 1, 5, 3],
     [3, 7, 9, 1, 2, 5, 4, 8, 6],
@@ -14,7 +12,7 @@ void main() {
     [5, 6, 2, 8, 7, 1, 3, 4, 9],
     [7, 3, 8, 9, 5, 4, 6, 2, 1],
   ]);
-  var s = SynchroSudoku.fromValues([
+  var incomplete = SynchroSudoku.fromValues([
     [0, 0, 4, 0, 0, 0, 1, 0, 3],
     [3, 0, 0, 0, 2, 0, 0, 8, 6],
     [0, 0, 0, 4, 0, 8, 2, 0, 0],
@@ -26,29 +24,19 @@ void main() {
     [0, 0, 8, 0, 0, 0, 6, 0, 1],
   ]);
 
-  var x = SynchroSudoku.fromValues([
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [6, 0, 0, 0, 0, 8, 7, 1, 0],
-    [0, 0, 0, 7, 0, 0, 3, 9, 0],
-    [0, 4, 0, 0, 0, 1, 0, 7, 0],
-    [5, 0, 7, 6, 0, 0, 0, 0, 0],
-    [2, 6, 0, 0, 8, 0, 4, 0, 0],
-    [0, 9, 0, 0, 3, 0, 0, 0, 0],
-    [3, 0, 2, 1, 0, 6, 0, 0, 0],
-    [0, 1, 0, 4, 2, 0, 0, 5, 0],
-  ]);
-  //print(x);
-  final transformer = SynchroTransformer();
-  //var t = SynchroTransformer().getRandomTransformations(s: s, n: 1500);
-  //print(x.cluesCount);
   final solver = SynchroSolver();
-  // var ss = solver.getAllSolutions(s: t.first);
-  //print(ss.length);
-  final unique = SynchroTransformer().reduceToUniqueSync(v: complete.clues);
+  // delete cells from solved sudoku to the minimum posible while keeping a unique solution
+  final unique = await SynchroTransformer().reduceToUnique(v: complete.clues);
+  print("unsolved:");
   print(unique);
-  print(unique.cluesCount);
-  print(solver
-      .getAllSolutions(
-          s: transformer.getRandomTransformations(s: unique, n: 1500).first)
-      .length);
+  // get all the solutions for the incomplete sudoku (a well formed sudoku only has 1 solution)
+  final solution = solver.getAllSolutions(s: incomplete, stopAfter: 1).first;
+  print("solved:");
+  print(solution);
+  final transformer = SynchroTransformer();
+  // get different sudokus with unique solutions from the given one
+  final transformed =
+      transformer.getRandomTransformations(s: incomplete, n: 1).first;
+  print("random transformation:");
+  print(transformed);
 }

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the randomTransformation method from the SynchroTransformer class, for the Dart programming language.">
+  <title>randomTransformation method - SynchroTransformer class - tunning_sudoku library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">tunning_sudoku</a></li>
+    <li><a href="../../tunning_sudoku/tunning_sudoku-library.html">tunning_sudoku</a></li>
+    <li><a href="../../tunning_sudoku/SynchroTransformer-class.html">SynchroTransformer</a></li>
+    <li class="self-crumb">randomTransformation method</li>
+  </ol>
+  <div class="self-name">randomTransformation</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-method">randomTransformation</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype"><a href="../../tunning_sudoku/SynchroSudoku-class.html">SynchroSudoku</a></span>
+<span class="name ">randomTransformation</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="randomTransformation-param-values">{<span>required</span> <span class="type-annotation"><a href="../../tunning_sudoku/SudokuValues-class.html">SudokuValues</a></span> <span class="parameter-name">values</span>, </span></li>
+<li><span class="parameter" id="randomTransformation-param-swapRows"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">swapRows</span> = <span class="default-value">true</span>, </span></li>
+<li><span class="parameter" id="randomTransformation-param-swapCols"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">swapCols</span> = <span class="default-value">true</span>, </span></li>
+<li><span class="parameter" id="randomTransformation-param-transpose"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">transpose</span> = <span class="default-value">true</span>, </span></li>
+<li><span class="parameter" id="randomTransformation-param-swapRowsInBox"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">swapRowsInBox</span> = <span class="default-value">true</span>, </span></li>
+<li><span class="parameter" id="randomTransformation-param-swapColsInBox"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">swapColsInBox</span> = <span class="default-value">true</span>, </span></li>
+<li><span class="parameter" id="randomTransformation-param-rotate"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">rotate</span> = <span class="default-value">true</span>}</span></li>
+</ol>)
+
+      
+
+    </section>
+    
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">SynchroSudoku randomTransformation(
+    {required SudokuValues values,
+    bool swapRows = true,
+    bool swapCols = true,
+    bool transpose = true,
+    bool swapRowsInBox = true,
+    bool swapColsInBox = true,
+    bool rotate = true}) {
+  SudokuValues transformed = values.copy();
+  if (swapRows) {
+    List&lt;int&gt; rows = [0, 3, 6]..shuffle();
+    transformed.swapRows(rows[0], rows[1]);
+    transformed.swapRows(rows[0] + 1, rows[1] + 1);
+    transformed.swapRows(rows[0] + 2, rows[1] + 2);
+  }
+  if (swapCols) {
+    List&lt;int&gt; cols = [0, 3, 6]..shuffle();
+    transformed.swapColumns(cols[0], cols[1]);
+    transformed.swapColumns(cols[0] + 1, cols[1] + 1);
+    transformed.swapColumns(cols[0] + 2, cols[1] + 2);
+  }
+  if (swapRowsInBox) {
+    List&lt;int&gt; rows1 = [0, 1, 2]..shuffle();
+    List&lt;int&gt; rows2 = [3, 4, 5]..shuffle();
+    List&lt;int&gt; rows3 = [6, 7, 8]..shuffle();
+    SudokuValues aux = transformed.copy();
+    for (int i = 0; i &lt; 3; i++) {
+      transformed.setRow(i, aux.getRow(rows1[i]));
+    }
+    for (int i = 0; i &lt; 3; i++) {
+      transformed.setRow(i + 3, aux.getRow(rows2[i]));
+    }
+    for (int i = 0; i &lt; 3; i++) {
+      transformed.setRow(i + 6, aux.getRow(rows3[i]));
+    }
+  }
+  if (swapColsInBox) {
+    List&lt;int&gt; cols1 = [0, 1, 2]..shuffle();
+    List&lt;int&gt; cols2 = [3, 4, 5]..shuffle();
+    List&lt;int&gt; cols3 = [6, 7, 8]..shuffle();
+    SudokuValues aux = transformed.copy();
+    for (int i = 0; i &lt; 3; i++) {
+      transformed.setColumn(i, aux.getColumn(cols1[i]));
+    }
+    for (int i = 0; i &lt; 3; i++) {
+      transformed.setColumn(i + 3, aux.getColumn(cols2[i]));
+    }
+    for (int i = 0; i &lt; 3; i++) {
+      transformed.setColumn(i + 6, aux.getColumn(cols3[i]));
+    }
+  }
+  if (transpose &amp;&amp; Random().nextBool()) {
+    transformed = transformed.transpose();
+  }
+  if (rotate) {
+    transformed = transformed.rotate(
+        left: Random().nextBool(), times: 1 + Random().nextInt(4));
+  }
+  final t = SynchroSudoku(clues: transformed);
+  return t;
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">tunning_sudoku</a></li>
+  <li><a href="../../tunning_sudoku/tunning_sudoku-library.html">tunning_sudoku</a></li>
+  <li><a href="../../tunning_sudoku/SynchroTransformer-class.html">SynchroTransformer</a></li>
+  <li class="self-crumb">randomTransformation method</li>
+</ol>
+
+
+    <h5>SynchroTransformer class</h5>
+    <ol>
+
+        <li class="section-title"><a href="../../tunning_sudoku/SynchroTransformer-class.html#constructors">Constructors</a></li>
+          <li><a href="../../tunning_sudoku/SynchroTransformer/SynchroTransformer.html">SynchroTransformer</a></li>
+
+
+        <li class="section-title inherited">
+          <a href="../../tunning_sudoku/SynchroTransformer-class.html#instance-properties">Properties</a>
+        </li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+
+        <li class="section-title"><a href="../../tunning_sudoku/SynchroTransformer-class.html#instance-methods">Methods</a></li>
+          <li><a href="../../tunning_sudoku/SynchroTransformer/getRandomTransformations.html">getRandomTransformations</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li><a href="../../tunning_sudoku/SynchroTransformer/randomTransformation.html">randomTransformation</a></li>
+          <li><a href="../../tunning_sudoku/SynchroTransformer/reduceToUnique.html">reduceToUnique</a></li>
+          <li><a href="../../tunning_sudoku/SynchroTransformer/reduceToUniqueSync.html">reduceToUniqueSync</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+
+        <li class="section-title inherited"><a href="../../tunning_sudoku/SynchroTransformer-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    tunning_sudoku
+      1.0.0
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

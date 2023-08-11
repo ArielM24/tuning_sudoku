@@ -3,7 +3,9 @@
 /// More dartdocs go here.
 library;
 
-export 'src/tunning_sudoku_base.dart';
 export 'src/model/synchro_sudoku.dart';
+export 'src/model/sudoku_values.dart';
+export 'src/util/sudoku_solver.dart';
+export 'src/util/sudoku_transformer.dart';
 
 // TODO: Export any libraries intended for clients of this package.

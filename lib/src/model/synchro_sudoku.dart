@@ -12,7 +12,7 @@ class SynchroSudoku {
 
   @override
   String toString() {
-    return "clues:\n$clues";
+    return "clues ($cluesCount):\n$clues";
   }
 
   bool hasSameClues(SynchroSudoku s) {

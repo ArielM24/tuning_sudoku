@@ -1,5 +1,3 @@
-import 'package:tunning_sudoku/tunning_sudoku.dart';
-
 class SudokuValues {
   static const _s = "---------------------------\n";
 
