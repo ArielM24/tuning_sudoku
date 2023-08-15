@@ -1,39 +1,66 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# tuning_sudoku
+## [Changelog](https://github.com/ArielM24/tuning_sudoku/blob/alpha1/CHANGELOG.md)
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+The package to generate and solve sudokus that is used by SynchroGames
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+*Solve sudokus
+*Get all possible solutions for a sudoku
+*Apply valid transformations to sudokus
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
 
 ## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  tunning_sudoku: 0.1.1
 ```
 
-## Additional information
+```dart
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+import 'package:tunning_sudoku/tunning_sudoku.dart';
+
+void main() async {
+  var complete = SynchroSudoku.fromValues([
+    [8, 2, 4, 6, 9, 7, 1, 5, 3],
+    [3, 7, 9, 1, 2, 5, 4, 8, 6],
+    [1, 5, 6, 4, 3, 8, 2, 9, 7],
+    [6, 4, 7, 5, 8, 3, 9, 1, 2],
+    [2, 1, 3, 7, 4, 9, 8, 6, 5],
+    [9, 8, 5, 2, 1, 6, 7, 3, 4],
+    [4, 9, 1, 3, 6, 2, 5, 7, 8],
+    [5, 6, 2, 8, 7, 1, 3, 4, 9],
+    [7, 3, 8, 9, 5, 4, 6, 2, 1],
+  ]);
+  var incomplete = SynchroSudoku.fromValues([
+    [0, 0, 4, 0, 0, 0, 1, 0, 3],
+    [3, 0, 0, 0, 2, 0, 0, 8, 6],
+    [0, 0, 0, 4, 0, 8, 2, 0, 0],
+    [6, 0, 7, 5, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 4, 0, 0, 6, 0],
+    [9, 0, 5, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, 3, 0, 2, 5, 0, 0],
+    [5, 0, 0, 0, 7, 0, 0, 4, 9],
+    [0, 0, 8, 0, 0, 0, 6, 0, 1],
+  ]);
+
+  final solver = SynchroSolver();
+  // delete cells from solved sudoku to the minimum posible while keeping a unique solution
+  final unique = await SynchroTransformer().reduceToUnique(v: complete.clues);
+  print("unsolved:");
+  print(unique);
+  // get all the solutions for the incomplete sudoku (a well formed sudoku only has 1 solution)
+  final solution = solver.getAllSolutions(s: incomplete, stopAfter: 1).first;
+  print("solved:");
+  print(solution);
+  final transformer = SynchroTransformer();
+  // get different sudokus with unique solutions from the given one
+  final transformed =
+      transformer.getRandomTransformations(s: incomplete, n: 1).first;
+  print("random transformation:");
+  print(transformed);
+}
+
+```
+
+

@@ -1,10 +1,15 @@
+/// represents the 9x9 matrix that cointains the values of a sudoku
 class SudokuValues {
   static const _s = "---------------------------\n";
 
   final List<List<int>> _values;
+
+  /// creates an empty matrix
   SudokuValues()
       : _values = List.generate(9, (index) => List.generate(9, (index) => 0));
 
+  /// returns a copy of the object to modify it, normal assignments may result
+  /// in alteration of the original instance, use this function instead
   SudokuValues copy() {
     SudokuValues c = SudokuValues();
     for (int i = 0; i < 9; i++) {
@@ -84,6 +89,7 @@ class SudokuValues {
     return "$_s${_values.join("\n")}\n$_s";
   }
 
+  /// applies the transpose operation of a matrix to the values of the object
   SudokuValues transpose() {
     SudokuValues t = SudokuValues();
     for (int i = 0; i < 9; i++) {
@@ -104,6 +110,9 @@ class SudokuValues {
     return r;
   }
 
+  /// rotates the values of the matrix in counterclockwise the given times
+  /// ```[1, 2]   ->   [2, 4]
+  ///    [3, 4]        [1, 3]```
   SudokuValues leftRotate({int times = 1}) {
     SudokuValues rotated = _leftRotate(this);
     for (int i = 1; i < times; i++) {
@@ -122,6 +131,9 @@ class SudokuValues {
     return r;
   }
 
+  /// rotates the values of the matrix in clockwise the given times
+  /// ```[1, 2]   ->   [3, 1]
+  ///    [3, 4]        [4, 2]```
   SudokuValues rightRotate({int times = 1}) {
     SudokuValues rotated = _rightRotate(this);
     for (int i = 1; i < times; i++) {
@@ -130,6 +142,8 @@ class SudokuValues {
     return rotated;
   }
 
+  /// applies rightRotate (or leftRotate if left is [true]) the given times
+  /// to the values
   SudokuValues rotate({int times = 1, bool left = false}) {
     if (left) {
       return leftRotate(times: times);
@@ -157,6 +171,7 @@ class SudokuValues {
     _values[r][c] = n;
   }
 
+  /// gets the 3x3 box where the coordinates belongs to
   List<int> getBox({required int r, required int c}) {
     if (r < 0 || r > 8) {
       throw Exception("row out of index [0...8]");
@@ -177,18 +192,24 @@ class SudokuValues {
     return box;
   }
 
+  /// returns true if [n] is a valid to put in the coordinates [r][c]
+  /// for that row
   bool isValidInRow({required int n, required int r, required int c}) {
     // n already exists in a different cell than r, c
     int index = getRow(r).indexOf(n);
     return index == c || index == -1;
   }
 
+  /// returns true if [n] is a valid to put in the coordinates [r][c]
+  /// for that column
   bool isValidInColumn({required int n, required int r, required int c}) {
     // n already exists in a different cell than r, c
     int index = getColumn(c).indexOf(n);
     return index == r || index == -1;
   }
 
+  /// returns true if [n] is a valid to put in the coordinates [r][c]
+  /// in that box
   bool isValidInBox({required int n, required int r, required int c}) {
     int localR = r % 3;
     int localC = c % 3;
@@ -198,12 +219,15 @@ class SudokuValues {
     return index == localIndex || index == -1;
   }
 
+  /// returns true if [n] is a valid to put in the coordinates [r][c]
+  /// in the values following the rules of a sudoku
   bool isValid({required int n, required int r, required int c}) {
     return isValidInRow(n: n, r: r, c: c) &&
         isValidInColumn(n: n, r: r, c: c) &&
         isValidInBox(n: n, r: r, c: c);
   }
 
+  /// returns true if the matrix is filled following the rules of a sudoku
   bool isSolved() {
     for (int r = 0; r < 9; r++) {
       for (int c = 0; c < 9; c++) {

@@ -3,7 +3,14 @@ import 'dart:math';
 
 import '../../tunning_sudoku.dart';
 
+/// this class contains methods to make transformations to sudokus while
+/// keeping it with the same amount of solutions
 class SynchroTransformer {
+  /// randomly removes clues of a sudoku to the less possible while keeping it with a
+  /// unique solution, for the less clues possible increase [iterations], for the
+  /// most clues posible increate [iterations] and set [keepMax] to true.
+  /// example:
+  /// this complete sudoku can be reduced to a unsolved sudoku with a unique solution
   SynchroSudoku reduceToUniqueSync(
       {required SudokuValues v, int iterations = 10, bool keepMax = false}) {
     SudokuValues unique = v.copy();
@@ -44,6 +51,8 @@ class SynchroTransformer {
     return minUnique;
   }
 
+  /// applies transformations to the given values while keekping the same amount
+  /// of solutions
   SynchroSudoku randomTransformation(
       {required SudokuValues values,
       bool swapRows = true,
@@ -106,6 +115,9 @@ class SynchroTransformer {
     return t;
   }
 
+  /// get different [n] transformations for the given values while keekping the same amount
+  /// of solutions, if a transformation is repetead while generating them, it well generate
+  /// another one, the number of possible rerolls is determinated by [maxReroll]
   List<SynchroSudoku> getRandomTransformations(
       {required SynchroSudoku s, int n = 5, int maxReroll = 10}) {
     List<SynchroSudoku> transformations = [];
@@ -129,6 +141,11 @@ class SynchroTransformer {
     return transformations;
   }
 
+  /// randomly removes clues of a sudoku to the less possible while keeping it with a
+  /// unique solution, for the less clues possible increase [iterations], for the
+  /// most clues posible increate [iterations] and set [keepMax] to true.
+  /// example:
+  /// this complete sudoku can be reduced to a unsolved sudoku with a unique solution
   Future<SynchroSudoku> reduceToUnique(
       {required SudokuValues v,
       int iterations = 1,

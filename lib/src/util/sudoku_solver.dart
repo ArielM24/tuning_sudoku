@@ -1,5 +1,6 @@
 import 'package:tunning_sudoku/tunning_sudoku.dart';
 
+/// This class contains methods to solve sudokus
 class SynchroSolver {
   List<SudokuValues> _allSolutionsBacktraking(
       {required int r,
@@ -37,14 +38,15 @@ class SynchroSolver {
       // no solution with this value
       s.setCell(r, c, 0);
     }
-    //print("solutions ${solved.length}");
     if (solved.isNotEmpty) {
-      //print("returning ${solved.length} solutions");
       return solved;
     }
     return [];
   }
 
+  /// return a list with all the posible solutions fot the given sudoku
+  /// using backtraking, the search for solutions can be limited with [stopAfter]
+  /// note a well formed sudoku will only have a unique solution
   List<SudokuValues> getAllSolutions(
       {required SynchroSudoku s, int stopAfter = 50}) {
     return _allSolutionsBacktraking(

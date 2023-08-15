@@ -1,13 +1,30 @@
 import 'sudoku_values.dart';
 
+/// represents a sudoku with a matrix of 9x9 that contains the clues
+/// and a board to solve it
 class SynchroSudoku {
   SudokuValues clues;
-  SynchroSudoku.empty() : clues = SudokuValues();
-  SynchroSudoku({required this.clues});
-  SynchroSudoku.fromValues(List<List<int>> values) : clues = SudokuValues() {
+  SudokuValues board;
+
+  /// creates a sudoku with no clues
+  SynchroSudoku.empty()
+      : clues = SudokuValues(),
+        board = SudokuValues();
+
+  /// creates a sudoku from the given clues and copy them into the board
+  SynchroSudoku({required this.clues}) : board = SudokuValues();
+
+  /// creates a sudoku from the given values and copy them into the board
+  SynchroSudoku.fromValues(List<List<int>> values)
+      : clues = SudokuValues(),
+        board = SudokuValues() {
+    if (values.length != 9) {
+      throw Exception("values must be a 9x9 matrix");
+    }
     for (int i = 0; i < 9; i++) {
       clues.setRow(i, values[i]);
     }
+    board = clues.copy();
   }
 
   @override
@@ -15,6 +32,7 @@ class SynchroSudoku {
     return "clues ($cluesCount):\n$clues";
   }
 
+  /// returns [true] if s.clues contains the same values
   bool hasSameClues(SynchroSudoku s) {
     for (int i = 0; i < 9; i++) {
       for (int j = 0; j < 9; j++) {
@@ -26,6 +44,7 @@ class SynchroSudoku {
     return true;
   }
 
+  /// returns the count of the clues that are not 0
   int get cluesCount {
     int count = 0;
     for (int i = 0; i < 9; i++) {
@@ -36,5 +55,10 @@ class SynchroSudoku {
       }
     }
     return count;
+  }
+
+  /// returns true if the cell at coordinates [r][c] is empty in the clues
+  bool isEditable({required int r, required int c}) {
+    return clues.getCell(r, c) == 0;
   }
 }
