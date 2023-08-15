@@ -1,5 +1,5 @@
 # tuning_sudoku
-## [Changelog](https://github.com/ArielM24/tuning_sudoku/blob/alpha1/CHANGELOG.md)
+## [Changelog](https://github.com/ArielM24/tuning_sudoku/blob/master/CHANGELOG.md)
 
 The package to generate and solve sudokus that is used by SynchroGames
 
