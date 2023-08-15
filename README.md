@@ -5,9 +5,10 @@ The package to generate and solve sudokus that is used by SynchroGames
 
 ## Features
 
-*Solve sudokus
-*Get all possible solutions for a sudoku
-*Apply valid transformations to sudokus
+ - Solve sudokus
+ - Generate sudokus
+ - Get all possible solutions for a sudoku
+ - Apply valid transformations to sudokus
 
 
 ## Usage
