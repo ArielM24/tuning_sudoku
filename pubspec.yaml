@@ -1,12 +1,10 @@
 name: tunning_sudoku
-description: A starting point for Dart libraries or applications.
+description: A sudoku library from SynchroGames.
 version: 0.1.1
-# repository: https://github.com/ArielM24/tuning_sudoku
+homepage: https://github.com/ArielM24/tuning_sudoku
 
 environment:
   sdk: ^3.0.6
-
-dependencies:
 
 dev_dependencies:
   lints: ^2.0.0
