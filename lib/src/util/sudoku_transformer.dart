@@ -154,4 +154,10 @@ class SynchroTransformer {
         v: v.copy(), iterations: iterations, keepMax: keepMax));
     return sudoku;
   }
+
+  /// returns a random sudoku with a unique solution
+  SynchroSudoku randomSample() {
+    return reduceToUniqueSync(
+        v: getRandomTransformations(s: SynchroSudoku.sample, n: 1).first.clues);
+  }
 }

@@ -27,6 +27,21 @@ class SynchroSudoku {
     board = clues.copy();
   }
 
+  /// sample of a solved sudoku
+  static SynchroSudoku get sample {
+    return SynchroSudoku.fromValues([
+      [8, 2, 4, 6, 9, 7, 1, 5, 3],
+      [3, 7, 9, 1, 2, 5, 4, 8, 6],
+      [1, 5, 6, 4, 3, 8, 2, 9, 7],
+      [6, 4, 7, 5, 8, 3, 9, 1, 2],
+      [2, 1, 3, 7, 4, 9, 8, 6, 5],
+      [9, 8, 5, 2, 1, 6, 7, 3, 4],
+      [4, 9, 1, 3, 6, 2, 5, 7, 8],
+      [5, 6, 2, 8, 7, 1, 3, 4, 9],
+      [7, 3, 8, 9, 5, 4, 6, 2, 1],
+    ]);
+  }
+
   @override
   String toString() {
     return "clues ($cluesCount):\n$clues";
