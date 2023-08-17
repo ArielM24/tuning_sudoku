@@ -5,7 +5,7 @@ import '../../tunning_sudoku.dart';
 
 /// this class contains methods to make transformations to sudokus while
 /// keeping it with the same amount of solutions
-class SynchroTransformer {
+class SudokuTransformer {
   /// randomly removes clues of a sudoku to the less possible while keeping it with a
   /// unique solution, for the less clues possible increase [iterations], for the
   /// most clues posible increate [iterations] and set [keepMax] to true.
@@ -29,7 +29,8 @@ class SynchroTransformer {
       backup = unique.getCell(r, c);
       unique.setCell(r, c, 0);
       final SynchroSudoku aux = SynchroSudoku(clues: unique.copy());
-      final solutions = SynchroSolver().getAllSolutions(s: aux, stopAfter: 2);
+      final solutions =
+          SudokuSolver().getAllSolutionsSync(s: aux, stopAfter: 2);
       if (solutions.length != 1) {
         currentIteration++;
         unique.setCell(r, c, backup);
@@ -118,7 +119,7 @@ class SynchroTransformer {
   /// get different [n] transformations for the given values while keekping the same amount
   /// of solutions, if a transformation is repetead while generating them, it well generate
   /// another one, the number of possible rerolls is determinated by [maxReroll]
-  List<SynchroSudoku> getRandomTransformations(
+  List<SynchroSudoku> getRandomTransformationsSync(
       {required SynchroSudoku s, int n = 5, int maxReroll = 10}) {
     List<SynchroSudoku> transformations = [];
     int repeated = 0;
@@ -141,6 +142,15 @@ class SynchroTransformer {
     return transformations;
   }
 
+  /// get different [n] transformations for the given values while keekping the same amount
+  /// of solutions, if a transformation is repetead while generating them, it well generate
+  /// another one, the number of possible rerolls is determinated by [maxReroll]
+  Future<List<SynchroSudoku>> getRandomTransformations(
+      {required SynchroSudoku s, int n = 5, int maxReroll = 10}) async {
+    return await Isolate.run(
+        () => getRandomTransformationsSync(s: s, n: n, maxReroll: maxReroll));
+  }
+
   /// randomly removes clues of a sudoku to the less possible while keeping it with a
   /// unique solution, for the less clues possible increase [iterations], for the
   /// most clues posible increate [iterations] and set [keepMax] to true.
@@ -156,8 +166,18 @@ class SynchroTransformer {
   }
 
   /// returns a random sudoku with a unique solution
-  SynchroSudoku randomSample() {
+  SynchroSudoku randomSampleSync() {
     return reduceToUniqueSync(
-        v: getRandomTransformations(s: SynchroSudoku.sample, n: 1).first.clues);
+        v: getRandomTransformationsSync(s: SynchroSudoku.sample, n: 1)
+            .first
+            .clues);
+  }
+
+  /// returns a random sudoku with a unique solution
+  Future<SynchroSudoku> randomSample() async {
+    return await Isolate.run(() => reduceToUniqueSync(
+        v: getRandomTransformationsSync(s: SynchroSudoku.sample, n: 1)
+            .first
+            .clues));
   }
 }
