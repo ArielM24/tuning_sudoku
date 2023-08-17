@@ -168,7 +168,7 @@ class SudokuTransformer {
   /// returns a random sudoku with a unique solution
   SynchroSudoku randomSampleSync() {
     return reduceToUniqueSync(
-        v: getRandomTransformationsSync(s: SynchroSudoku.sample, n: 1)
+        v: getRandomTransformationsSync(s: SudokuDataset.randomSolved, n: 1)
             .first
             .clues);
   }
@@ -176,7 +176,7 @@ class SudokuTransformer {
   /// returns a random sudoku with a unique solution
   Future<SynchroSudoku> randomSample() async {
     return await Isolate.run(() => reduceToUniqueSync(
-        v: getRandomTransformationsSync(s: SynchroSudoku.sample, n: 1)
+        v: getRandomTransformationsSync(s: SudokuDataset.randomSolved, n: 1)
             .first
             .clues));
   }

@@ -16,7 +16,7 @@ The package to generate and solve sudokus that is used by SynchroGames
 ## Usage
 ```yaml
 dependencies:
-  tunning_sudoku: 0.1.8
+  tunning_sudoku: 0.1.9
 ```
 
 ```dart

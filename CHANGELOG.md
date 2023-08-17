@@ -20,3 +20,6 @@
 
 ## 0.1.8
 - Dependency updated
+
+## 0.1.9
+- Using SudokuDataset.randomSolved for randomSample
