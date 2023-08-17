@@ -1,5 +1,4 @@
 import 'package:test/test.dart';
-import 'package:tunning_sudoku/src/util/sudoku_generator.dart';
 import 'package:tunning_sudoku/tunning_sudoku.dart';
 
 void main() {
