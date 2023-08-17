@@ -14,3 +14,6 @@
 - Added solved dataset
 ## 0.1.6
 - Updated example in readme
+
+## 0.1.7
+- updated features in readme

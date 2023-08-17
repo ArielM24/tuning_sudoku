@@ -10,6 +10,7 @@ The package to generate and solve sudokus that is used by SynchroGames
  - Generate sudokus
  - Get all possible solutions for a sudoku
  - Apply valid transformations to sudokus
+ - Dataset with already solved and unsolved sudokus
 
 
 ## Usage
@@ -25,7 +26,7 @@ import 'package:tunning_sudoku/tunning_sudoku.dart';
 void main() async {
   var solved = SudokuDataset.randomSolved;
   print(solved);
-  
+
   var complete = SynchroSudoku.fromValues([
     [8, 2, 4, 6, 9, 7, 1, 5, 3],
     [3, 7, 9, 1, 2, 5, 4, 8, 6],
