@@ -1,4 +1,5 @@
 import 'package:test/test.dart';
+import 'package:tunning_sudoku/src/util/sudoku_generator.dart';
 import 'package:tunning_sudoku/tunning_sudoku.dart';
 
 void main() {
@@ -15,8 +16,8 @@ void main() {
         [5, 6, 2, 8, 7, 1, 3, 4, 9],
         [7, 3, 8, 9, 5, 4, 6, 2, 1],
       ]);
-      var unique = SynchroTransformer().reduceToUniqueSync(v: complete.clues);
-      var solutions = SynchroSolver().getAllSolutions(s: unique);
+      var unique = SudokuTransformer().reduceToUniqueSync(v: complete.clues);
+      var solutions = SudokuSolver().getAllSolutionsSync(s: unique);
       expect(solutions.length, 1);
     });
     test('Sudoku solving', () {
@@ -31,7 +32,7 @@ void main() {
         [5, 0, 0, 0, 7, 0, 0, 4, 9],
         [0, 0, 8, 0, 0, 0, 6, 0, 1],
       ]);
-      var solutions = SynchroSolver().getAllSolutions(s: incomplete);
+      var solutions = SudokuSolver().getAllSolutionsSync(s: incomplete);
       expect(solutions.length, 1);
     });
     test('Sudoku transformation', () {
@@ -47,8 +48,14 @@ void main() {
         [7, 3, 8, 9, 5, 4, 6, 2, 1],
       ]);
       var transformed =
-          SynchroTransformer().getRandomTransformations(s: complete, n: 1);
-      var solutions = SynchroSolver().getAllSolutions(s: transformed.first);
+          SudokuTransformer().getRandomTransformationsSync(s: complete, n: 1);
+      var solutions = SudokuSolver().getAllSolutionsSync(s: transformed.first);
+      expect(solutions.length, 1);
+    });
+    test('Sudoku generation', () {
+      var generated = SudokuGenerator().generateSync();
+      var solutions = SudokuSolver().getAllSolutionsSync(s: generated);
+      expect(generated.cluesCount, 35);
       expect(solutions.length, 1);
     });
   });

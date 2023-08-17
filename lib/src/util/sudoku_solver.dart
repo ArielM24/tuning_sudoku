@@ -1,7 +1,9 @@
+import 'dart:isolate';
+
 import 'package:tunning_sudoku/tunning_sudoku.dart';
 
 /// This class contains methods to solve sudokus
-class SynchroSolver {
+class SudokuSolver {
   List<SudokuValues> _allSolutionsBacktraking(
       {required int r,
       required int c,
@@ -47,9 +49,46 @@ class SynchroSolver {
   /// return a list with all the posible solutions fot the given sudoku
   /// using backtraking, the search for solutions can be limited with [stopAfter]
   /// note a well formed sudoku will only have a unique solution
-  List<SudokuValues> getAllSolutions(
+  List<SudokuValues> getAllSolutionsSync(
       {required SynchroSudoku s, int stopAfter = 50}) {
     return _allSolutionsBacktraking(
         r: 0, c: 0, s: s.clues.copy(), stopAfter: stopAfter);
+  }
+
+  /// returns true if the given sudoku has only 1 solution
+  bool hasUniqueSolutionSync({required SynchroSudoku s}) {
+    return _allSolutionsBacktraking(r: 0, c: 0, s: s.clues.copy(), stopAfter: 2)
+            .length ==
+        1;
+  }
+
+  /// returns true if the given sudoku has at least 1 solution
+  bool hasSolutionSync({required SynchroSudoku s}) {
+    return _allSolutionsBacktraking(r: 0, c: 0, s: s.clues.copy(), stopAfter: 2)
+        .isNotEmpty;
+  }
+
+  /// return a list with all the posible solutions fot the given sudoku
+  /// using backtraking, the search for solutions can be limited with [stopAfter]
+  /// note a well formed sudoku will only have a unique solution
+  Future<List<SudokuValues>> getAllSolutions(
+      {required SynchroSudoku s, int stopAfter = 50}) async {
+    return await Isolate.run(() => _allSolutionsBacktraking(
+        r: 0, c: 0, s: s.clues.copy(), stopAfter: stopAfter));
+  }
+
+  /// returns true if the given sudoku has only 1 solution
+  Future<bool> hasUniqueSolution({required SynchroSudoku s}) async {
+    return (await Isolate.run(() => _allSolutionsBacktraking(
+                r: 0, c: 0, s: s.clues.copy(), stopAfter: 2)))
+            .length ==
+        1;
+  }
+
+  /// returns true if the given sudoku has at least 1 solution
+  Future<bool> hasSolution({required SynchroSudoku s}) async {
+    return (await Isolate.run(() => _allSolutionsBacktraking(
+            r: 0, c: 0, s: s.clues.copy(), stopAfter: 2)))
+        .isNotEmpty;
   }
 }

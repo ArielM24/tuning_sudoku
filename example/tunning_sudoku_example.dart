@@ -24,19 +24,31 @@ void main() async {
     [0, 0, 8, 0, 0, 0, 6, 0, 1],
   ]);
 
-  final solver = SynchroSolver();
+  final solver = SudokuSolver();
   // delete cells from solved sudoku to the minimum posible while keeping a unique solution
-  final unique = await SynchroTransformer().reduceToUnique(v: complete.clues);
+  final unique = await SudokuTransformer().reduceToUnique(v: complete.clues);
   print("unsolved:");
   print(unique);
   // get all the solutions for the incomplete sudoku (a well formed sudoku only has 1 solution)
-  final solution = solver.getAllSolutions(s: incomplete, stopAfter: 1).first;
+  final solution =
+      solver.getAllSolutionsSync(s: incomplete, stopAfter: 1).first;
   print("solved:");
   print(solution);
-  final transformer = SynchroTransformer();
+  final transformer = SudokuTransformer();
   // get different sudokus with unique solutions from the given one
   final transformed =
-      transformer.getRandomTransformations(s: incomplete, n: 1).first;
+      transformer.getRandomTransformationsSync(s: incomplete, n: 1).first;
   print("random transformation:");
   print(transformed);
+
+  // generate a sudoku with the given number of clues
+  var generated = SudokuGenerator().generateSync(clues: 27);
+  print(generated);
+  print(SudokuSolver().hasUniqueSolutionSync(s: generated));
+
+  // generate a sudoku from a default difficulty
+  var difficulty = SudokuGenerator()
+      .generateFromDifficultySync(difficulty: SudokuDifficulty.insane);
+  print(difficulty);
+  print(SudokuSolver().hasUniqueSolutionSync(s: difficulty));
 }
