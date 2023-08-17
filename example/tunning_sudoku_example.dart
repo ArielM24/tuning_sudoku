@@ -48,7 +48,20 @@ void main() async {
 
   // generate a sudoku from a default difficulty
   var difficulty = SudokuGenerator()
-      .generateFromDifficultySync(difficulty: SudokuDifficulty.insane);
+      .generateFromDifficultySync(difficulty: SudokuDifficulty.expert);
   print(difficulty);
-  print(SudokuSolver().hasUniqueSolutionSync(s: difficulty));
+
+  // load a sudoku from a string
+  var fromString = SynchroSudoku.fromString(
+      "070000043040009610800634900094052000358460020000800530080070091902100005007040802");
+  print(fromString);
+
+  // load a sudoku from internal dataset
+  var fromDataset = SudokuDataset.randomExpert;
+  print(fromDataset);
+
+  // generate a sudoku from a default difficulty
+  var predifined =
+      SudokuGenerator().getFromDifficulty(difficulty: SudokuDifficulty.expert);
+  print(predifined);
 }
