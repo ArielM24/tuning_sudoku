@@ -1,13 +1,13 @@
 import 'dart:math';
 import 'dart:isolate';
 
-import 'package:tunning_sudoku/src/dataset/sudoku_dataset.dart';
 import 'package:tunning_sudoku/tunning_sudoku.dart';
 
 enum SudokuDifficulty { quick, easy, normal, hard, expert }
 
 /// This class contains methods to generate sudokus
 class SudokuGenerator {
+  /// this is a expensive function! use [getFromDifficulty]
   /// generates a sudoku with the given number of clues with a unique solution
   /// the less number of clues the more time it takes to generate it
   /// the minimun number of clues allowed to generated in a reasonable time is 25
@@ -48,10 +48,10 @@ class SudokuGenerator {
         continue;
       }
     }
-    print("iterations $iterations");
     return SynchroSudoku(clues: values);
   }
 
+  /// this is a expensive function! use [getFromDifficulty]
   /// generates a sudoku with the given number of clues with a unique solution
   /// the less number of clues the more time it takes to generate it
   /// the minimun number of clues allowed to generated in a reasonable time is 25
@@ -62,15 +62,16 @@ class SudokuGenerator {
     return s;
   }
 
+  /// this is a expensive function! use [getFromDifficulty]
   /// generates a sudoku from the given difficulty
   /// the more difficult the more time it takes to generate it
   SynchroSudoku generateFromDifficultySync(
       {SudokuDifficulty difficulty = SudokuDifficulty.normal}) {
     int clues = 0;
     switch (difficulty) {
-      // 41 - 45 clues
+      // 40 - 45 clues
       case SudokuDifficulty.quick:
-        clues = Random().nextInt(6) + 41;
+        clues = Random().nextInt(6) + 40;
       // 35 - 39 clues
       case SudokuDifficulty.easy:
         clues = Random().nextInt(5) + 35;
@@ -87,6 +88,7 @@ class SudokuGenerator {
     return generateSync(clues: clues);
   }
 
+  /// this is a expensive function! use [getFromDifficulty]
   /// generates a sudoku from the given difficulty
   /// the more difficult the more time it takes to generate it
   Future<SynchroSudoku> generateFromDifficulty(
@@ -99,33 +101,33 @@ class SudokuGenerator {
   SynchroSudoku getFromDifficulty(
       {SudokuDifficulty difficulty = SudokuDifficulty.normal}) {
     switch (difficulty) {
-      // 41 - 45 clues
+      // 40 - 45 clues
       case SudokuDifficulty.quick:
         return SudokuTransformer()
-            .getRandomTransformationsSync(s: SudokuDataset.fromQuick, n: 1)
+            .getRandomTransformationsSync(s: SudokuDataset.randomQuick, n: 1)
             .first;
 
       // 35 - 39 clues
       case SudokuDifficulty.easy:
         return SudokuTransformer()
-            .getRandomTransformationsSync(s: SudokuDataset.fromEasy, n: 1)
+            .getRandomTransformationsSync(s: SudokuDataset.randomEasy, n: 1)
             .first;
       // 30 - 34 clues
       case SudokuDifficulty.normal:
         return SudokuTransformer()
-            .getRandomTransformationsSync(s: SudokuDataset.fromNormal, n: 1)
+            .getRandomTransformationsSync(s: SudokuDataset.randomNormal, n: 1)
             .first;
 
       // 28 - 29 clues
       case SudokuDifficulty.hard:
         return SudokuTransformer()
-            .getRandomTransformationsSync(s: SudokuDataset.fromHard, n: 1)
+            .getRandomTransformationsSync(s: SudokuDataset.randomHard, n: 1)
             .first;
 
       // 25 - 27 clues
       case SudokuDifficulty.expert:
         return SudokuTransformer()
-            .getRandomTransformationsSync(s: SudokuDataset.fromExpert, n: 1)
+            .getRandomTransformationsSync(s: SudokuDataset.randomExpert, n: 1)
             .first;
     }
   }

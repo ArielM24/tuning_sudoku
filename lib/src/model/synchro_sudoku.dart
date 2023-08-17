@@ -42,6 +42,21 @@ class SynchroSudoku {
     ]);
   }
 
+  SynchroSudoku.fromString(String str)
+      : clues = SudokuValues(),
+        board = SudokuValues() {
+    if (str.length != 81) {
+      throw Exception("string must be 81 lenght");
+    }
+    for (int r = 0; r < 9; r++) {
+      for (int c = 0; c < 9; c++) {
+        int n = int.parse(str[r * 9 + c]);
+        clues.setCell(r, c, n);
+      }
+    }
+    board = clues.copy();
+  }
+
   @override
   String toString() {
     return "clues ($cluesCount):\n$clues";
