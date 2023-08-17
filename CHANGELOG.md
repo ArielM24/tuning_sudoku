@@ -16,4 +16,7 @@
 - Updated example in readme
 
 ## 0.1.7
-- updated features in readme
+- Updated features in readme
+
+## 0.1.8
+- Dependency updated
