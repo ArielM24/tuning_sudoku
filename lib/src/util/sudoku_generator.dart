@@ -3,7 +3,7 @@ import 'dart:isolate';
 
 import 'package:tunning_sudoku/tunning_sudoku.dart';
 
-enum SudokuDifficulty { easy, normal, hard, insane }
+enum SudokuDifficulty { quick, easy, normal, hard, expert }
 
 /// This class contains methods to generate sudokus
 class SudokuGenerator {
@@ -67,14 +67,21 @@ class SudokuGenerator {
       {SudokuDifficulty difficulty = SudokuDifficulty.normal}) {
     int clues = 0;
     switch (difficulty) {
+      // 41 - 45 clues
+      case SudokuDifficulty.quick:
+        clues = Random().nextInt(6) + 41;
+      // 35 - 39 clues
       case SudokuDifficulty.easy:
-        clues = Random().nextInt(6) + 40;
+        clues = Random().nextInt(5) + 35;
+      // 30 - 34 clues
       case SudokuDifficulty.normal:
-        clues = Random().nextInt(4) + 35;
+        clues = Random().nextInt(5) + 30;
+      // 28 - 29 clues
       case SudokuDifficulty.hard:
-        clues = Random().nextInt(3) + 30;
-      case SudokuDifficulty.insane:
-        clues = Random().nextInt(2) + 25;
+        clues = Random().nextInt(2) + 28;
+      // 25 - 27 clues
+      case SudokuDifficulty.expert:
+        clues = Random().nextInt(3) + 25;
     }
     return generateSync(clues: clues);
   }

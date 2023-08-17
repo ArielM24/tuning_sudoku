@@ -48,7 +48,7 @@ void main() async {
 
   // generate a sudoku from a default difficulty
   var difficulty = SudokuGenerator()
-      .generateFromDifficultySync(difficulty: SudokuDifficulty.insane);
+      .generateFromDifficultySync(difficulty: SudokuDifficulty.expert);
   print(difficulty);
   print(SudokuSolver().hasUniqueSolutionSync(s: difficulty));
 }
