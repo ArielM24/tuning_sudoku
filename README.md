@@ -23,6 +23,9 @@ dependencies:
 import 'package:tunning_sudoku/tunning_sudoku.dart';
 
 void main() async {
+  var solved = SudokuDataset.randomSolved;
+  print(solved);
+  
   var complete = SynchroSudoku.fromValues([
     [8, 2, 4, 6, 9, 7, 1, 5, 3],
     [3, 7, 9, 1, 2, 5, 4, 8, 6],
