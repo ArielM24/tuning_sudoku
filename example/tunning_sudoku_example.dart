@@ -51,4 +51,10 @@ void main() async {
       .generateFromDifficultySync(difficulty: SudokuDifficulty.expert);
   print(difficulty);
   print(SudokuSolver().hasUniqueSolutionSync(s: difficulty));
+
+  // generate a sudoku from a default difficulty
+  var predifined =
+      SudokuGenerator().getFromDifficulty(difficulty: SudokuDifficulty.expert);
+  print(predifined);
+  print(SudokuSolver().hasUniqueSolutionSync(s: difficulty));
 }

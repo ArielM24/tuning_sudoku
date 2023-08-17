@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:isolate';
 
+import 'package:tunning_sudoku/src/dataset/sudoku_dataset.dart';
 import 'package:tunning_sudoku/tunning_sudoku.dart';
 
 enum SudokuDifficulty { quick, easy, normal, hard, expert }
@@ -92,5 +93,40 @@ class SudokuGenerator {
       {SudokuDifficulty difficulty = SudokuDifficulty.normal}) async {
     return await Isolate.run(
         () => generateFromDifficultySync(difficulty: difficulty));
+  }
+
+  /// gets a random sudoku from the given difficulty
+  SynchroSudoku getFromDifficulty(
+      {SudokuDifficulty difficulty = SudokuDifficulty.normal}) {
+    switch (difficulty) {
+      // 41 - 45 clues
+      case SudokuDifficulty.quick:
+        return SudokuTransformer()
+            .getRandomTransformationsSync(s: SudokuDataset.fromQuick, n: 1)
+            .first;
+
+      // 35 - 39 clues
+      case SudokuDifficulty.easy:
+        return SudokuTransformer()
+            .getRandomTransformationsSync(s: SudokuDataset.fromEasy, n: 1)
+            .first;
+      // 30 - 34 clues
+      case SudokuDifficulty.normal:
+        return SudokuTransformer()
+            .getRandomTransformationsSync(s: SudokuDataset.fromNormal, n: 1)
+            .first;
+
+      // 28 - 29 clues
+      case SudokuDifficulty.hard:
+        return SudokuTransformer()
+            .getRandomTransformationsSync(s: SudokuDataset.fromHard, n: 1)
+            .first;
+
+      // 25 - 27 clues
+      case SudokuDifficulty.expert:
+        return SudokuTransformer()
+            .getRandomTransformationsSync(s: SudokuDataset.fromExpert, n: 1)
+            .first;
+    }
   }
 }

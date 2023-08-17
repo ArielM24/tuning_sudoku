@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:tunning_sudoku/tunning_sudoku.dart';
+
 class SudokuDataset {
   // insane 25 - 27 clues
   static const List<List<List<int>>> expert = [
@@ -21,4 +25,24 @@ class SudokuDataset {
   static const List<List<List<int>>> easy = [];
   // quick 41 - 45 clues
   static const List<List<List<int>>> quick = [];
+
+  static SynchroSudoku get fromExpert {
+    return SynchroSudoku.fromValues(expert[Random().nextInt(expert.length)]);
+  }
+
+  static SynchroSudoku get fromHard {
+    return SynchroSudoku.fromValues(hard[Random().nextInt(hard.length)]);
+  }
+
+  static SynchroSudoku get fromNormal {
+    return SynchroSudoku.fromValues(normal[Random().nextInt(normal.length)]);
+  }
+
+  static SynchroSudoku get fromEasy {
+    return SynchroSudoku.fromValues(easy[Random().nextInt(easy.length)]);
+  }
+
+  static SynchroSudoku get fromQuick {
+    return SynchroSudoku.fromValues(quick[Random().nextInt(quick.length)]);
+  }
 }
