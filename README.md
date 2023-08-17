@@ -2,7 +2,7 @@
 ## [Changelog](https://github.com/ArielM24/tuning_sudoku/blob/master/CHANGELOG.md)
 
 The package to generate and solve sudokus that is used by SynchroGames
-![alt text](https://github.com/ArielM24/tuning_sudoku/blob/generator/logo1.png)
+![alt text](https://github.com/ArielM24/tuning_sudoku/blob/master/logo1.png)
 
 ## Features
 
