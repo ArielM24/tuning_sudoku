@@ -24,7 +24,7 @@ class SudokuGenerator {
       }
     }
 
-    SynchroSudoku s = SynchroSudoku.sample;
+    SynchroSudoku s = SudokuDataset.randomSolved;
     SudokuValues values = s.clues.copy();
     int cluesCount = 81;
     int iterations = 0;
