@@ -8,3 +8,5 @@
 
 ## 0.1.3
 - Added sudoku dataset
+## 0.1.4
+- Added examples in readme
