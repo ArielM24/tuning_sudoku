@@ -3,7 +3,7 @@ import 'dart:isolate';
 
 import 'package:tunning_sudoku/tunning_sudoku.dart';
 
-enum SudokuDifficulty { easy, normal, hard, isnane }
+enum SudokuDifficulty { easy, normal, hard, insane }
 
 /// This class contains methods to generate sudokus
 class SudokuGenerator {
@@ -59,5 +59,31 @@ class SudokuGenerator {
   Future<SynchroSudoku> generate({int clues = 35}) async {
     SynchroSudoku s = await Isolate.run(() => generateSync(clues: clues));
     return s;
+  }
+
+  /// generates a sudoku from the given difficulty
+  /// the more difficult the more time it takes to generate it
+  SynchroSudoku generateFromDifficultySync(
+      {SudokuDifficulty difficulty = SudokuDifficulty.normal}) {
+    int clues = 0;
+    switch (difficulty) {
+      case SudokuDifficulty.easy:
+        clues = Random().nextInt(6) + 40;
+      case SudokuDifficulty.normal:
+        clues = Random().nextInt(4) + 35;
+      case SudokuDifficulty.hard:
+        clues = Random().nextInt(3) + 30;
+      case SudokuDifficulty.insane:
+        clues = Random().nextInt(2) + 25;
+    }
+    return generateSync(clues: clues);
+  }
+
+  /// generates a sudoku from the given difficulty
+  /// the more difficult the more time it takes to generate it
+  Future<SynchroSudoku> generateFromDifficulty(
+      {SudokuDifficulty difficulty = SudokuDifficulty.normal}) async {
+    return await Isolate.run(
+        () => generateFromDifficultySync(difficulty: difficulty));
   }
 }

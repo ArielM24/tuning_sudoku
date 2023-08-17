@@ -1,4 +1,3 @@
-import 'package:tunning_sudoku/src/util/sudoku_generator.dart';
 import 'package:tunning_sudoku/tunning_sudoku.dart';
 
 void main() async {
@@ -46,5 +45,10 @@ void main() async {
   var generated = SudokuGenerator().generateSync(clues: 27);
   print(generated);
   print(SudokuSolver().hasUniqueSolutionSync(s: generated));
-  print(SudokuSolver().getAllSolutionsSync(s: generated).length);
+
+  // generate a sudoku from a default difficulty
+  var difficulty = SudokuGenerator()
+      .generateFromDifficultySync(difficulty: SudokuDifficulty.insane);
+  print(difficulty);
+  print(SudokuSolver().hasUniqueSolutionSync(s: difficulty));
 }
